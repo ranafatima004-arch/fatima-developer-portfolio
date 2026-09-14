@@ -4,7 +4,7 @@ import { ArrowUpRight, MessageCircle, Sparkles, Terminal } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-[#0b0f19] pt-16 pb-12">
+    <section className="hero relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-[#0b0f19] pt-16 pb-12">
       {/* Subtle Background Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-tr from-cyan-500/10 to-teal-500/10 blur-[120px] rounded-full pointer-events-none" />
 
