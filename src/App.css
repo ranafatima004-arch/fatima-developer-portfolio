@@ -288,10 +288,12 @@ section[id] { scroll-margin-top: 96px; }
   height: 44px;
   padding: 1px 3px;
   border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  background: #fff;
   box-shadow: none;
   transition: transform .2s ease, border-color .2s ease;
 }
-.logo-icon-box:hover { box-shadow: none; border-color: var(--palette-sky); }
+.logo-icon-box:hover { background: #fff; box-shadow: none; border-color: var(--palette-sky); }
 .brand-logo { width: 138px; height: 40px; }
 .nav-links {
   display: flex;
