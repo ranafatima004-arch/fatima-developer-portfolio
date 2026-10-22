@@ -415,13 +415,13 @@ section[id] { scroll-margin-top: 96px; }
 }
 .project-background-video {
   object-fit: cover;
-  opacity: .24;
-  filter: saturate(.78) brightness(.72);
+  opacity: .52;
+  filter: saturate(1.08) brightness(.9);
 }
 .project-background-overlay {
   background:
-    linear-gradient(145deg, rgba(7, 24, 32, .72), rgba(0, 0, 0, .82)),
-    radial-gradient(ellipse at 15% 0%, rgba(39, 124, 165, .2), transparent 55%);
+    linear-gradient(145deg, rgba(7, 24, 32, .38), rgba(0, 0, 0, .52)),
+    radial-gradient(ellipse at 15% 0%, rgba(39, 124, 165, .12), transparent 55%);
 }
 @media (prefers-reduced-motion: reduce) {
   .project-background-video { display: none; }
