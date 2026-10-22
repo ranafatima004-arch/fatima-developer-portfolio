@@ -1,4 +1,5 @@
 import './App.css'
+import ProjectBackground from './components/ProjectBackground'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -9,16 +10,19 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <SkillsEducation />
-        <Contact />
-      </main>
-      <Footer />
+    <div className="min-h-screen">
+      <ProjectBackground />
+      <div className="site-content">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Projects />
+          <SkillsEducation />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   )
 }

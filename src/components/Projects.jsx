@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Code2 } from 'lucide-react'
 import { projects } from './portfolioData'
 
 function Projects() {
+  const prefersReducedMotion = useReducedMotion()
   const trackRef = useRef(null)
   const dragRef = useRef({ active: false, startX: 0, startScroll: 0 })
   const [activeIndex, setActiveIndex] = useState(0)
@@ -35,7 +36,7 @@ function Projects() {
   }, [])
 
   useEffect(() => {
-    if (isPaused) return undefined
+    if (isPaused || prefersReducedMotion) return undefined
     const timer = window.setInterval(() => {
       setActiveIndex((current) => {
         const next = (current + 1) % projects.length
@@ -44,7 +45,7 @@ function Projects() {
       })
     }, 6000)
     return () => window.clearInterval(timer)
-  }, [isPaused])
+  }, [isPaused, prefersReducedMotion])
 
   const handlePointerDown = (event) => {
     const track = trackRef.current
@@ -81,9 +82,19 @@ function Projects() {
         <button type="button" className="carousel-arrow" onClick={() => moveSlide(1)} disabled={activeIndex === projects.length - 1} aria-label="Next project"><ArrowRight size={17} /></button>
       </div>
     </div>
-    <div className="project-carousel" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+    <div
+      className="project-carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={(event) => {
+        if (!event.currentTarget.contains(document.activeElement)) setIsPaused(false)
+      }}
+      onFocus={() => setIsPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget) && !event.currentTarget.matches(':hover')) setIsPaused(false)
+      }}
+    >
       <div className="project-grid" ref={trackRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} onPointerCancel={handlePointerUp} tabIndex="0" aria-label="Projects carousel">
-        {projects.map((project, index) => <motion.article className="project-card" key={project.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ delay: index * .08, duration: .55 }}>
+        {projects.map((project, index) => <motion.article className="project-card" key={project.title} initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }} whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: .2 }} transition={{ delay: prefersReducedMotion ? 0 : index * .08, duration: prefersReducedMotion ? 0 : .55 }}>
         <div className="project-top"><span className="project-number">{project.number}</span><span className="project-category">{project.category}</span></div>
         <div className="project-visual"><img src={project.image} alt={`${project.title} preview`} /></div>
         <div className="project-content"><h3>{project.title}</h3><p>{project.description}</p><div className="project-stack">{project.stack.map(tag => <span className="stack-tag" key={tag}>{tag}</span>)}</div></div>
